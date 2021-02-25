@@ -1,0 +1,146 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{ctex}
+\usepackage{amsmath,amscd,amsbsy,amssymb,latexsym,url,bm,amsthm}
+\usepackage{epsfig,graphicx,subfigure}
+\usepackage{enumitem,balance}
+\usepackage{wrapfig}
+\usepackage{mathrsfs,euscript}
+\usepackage[usenames]{xcolor}
+\usepackage{hyperref}
+\usepackage[vlined,ruled,linesnumbered]{algorithm2e}
+\hypersetup{colorlinks=true,linkcolor=black}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{exercise}{Exercise}
+\newtheorem*{solution}{Solution}
+\newtheorem{definition}{Definition}
+\theoremstyle{definition}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\newcommand{\postscript}[2]
+ {\setlength{\epsfxsize}{#2\hsize}
+  \centerline{\epsfbox{#1}}}
+
+\renewcommand{\baselinestretch}{1.0}
+
+\setlength{\oddsidemargin}{-0.365in}
+\setlength{\evensidemargin}{-0.365in}
+\setlength{\topmargin}{-0.3in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{10.1in}
+\setlength{\textwidth}{7in}
+\makeatletter \renewenvironment{proof}[1][Proof] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
+\makeatletter
+\renewenvironment{solution}[1][Solution] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
+
+\begin{document}
+\noindent
+
+%========================================================================
+\noindent\framebox[\linewidth]{\shortstack[c]{
+\Large{\textbf{Lab00-Proof}}\vspace{1mm}\\
+CS214-Algorithm and Complexity, Xiaofeng Gao, Spring 2021.}}
+\begin{center}
+\footnotesize{\color{red}$*$ If there is any problem, please contact TA Haolin Zhou.}
+
+% Please write down your name, student id and email.
+\footnotesize{\color{blue}$*$ Name:Yutian Liu \quad Student ID:519021910548 \quad Email: stau7001@sjtu.edu.cn}
+\end{center}
+
+\begin{enumerate}
+    \item
+    Prove that for any integer $n>2$, there is a prime $p$ satisfying $n<p<n!$. {\color{blue}(Hint: consider a prime factor $p$ of $n!-1$ and prove by contradiction)}
+    \begin{proof}
+        If $n!-1$ is a prime, there is a prime $p=n!-1$ satisfying $n<p<n!$.
+
+        If $n!-1$ isn't a prime, we consider prime factors $\{p_n\}$ of $n!-1$.$(p_i\in N,$ $ 1<p_i<n!)$
+
+        Supposing that $\exists p_i$, $ p_i\le n$.
+
+        Then we have $p_i\mid n!$, which means $p_i\nmid n!-1$. This contradicts the assumption that $p_i\mid n!-1$.
+
+        So $\forall p_i$ ,we have $n<p_i<n!$.
+
+        To sum up, for any integer $n>2$, there is a prime $p$ satisfying $n<p<n!$. 
+
+    \end{proof}
+
+    \item
+    Use the minimal counterexample principle to prove that for any integer $n\ge 7$, there exists integers $i_n\ge 0$ and $j_n\ge 0$, such that $n = i_n \times 2 + j_n \times 3$.
+    \begin{proof}
+        If $P(n) = i_n \times 2 + j_n \times 3$ is not true for every $n\ge 7$, then there are values of $n$ for which $P(n)$ is false, and there must be a smallest such value, say $n=k$.
+
+        Since $ P(7) = 2 \times 2+ 1 \times 3$ and $P(8)=4\times 2 +0\times 3$, we have $k\ge9$ and $k-2\ge 7$.
+
+        Since $k$ is the smallest value for which $P(k)$ is false, $P(k-2)$ is true. Thus $\exists i_0, \exists j_0$ s.t. $k-2=i_0\times 2+j_0\times 3$.
+        
+        However, we have
+        \begin{equation*} 
+         \begin{split}
+                             k=(k-2)+2&=i_0\times 2+j_0\times 3+2\\
+                                      &=(i_0+1)\times 2+j_0\times 3\\
+                                      &=i_1\times 2+j_1\times 3
+         \end{split}
+        \end{equation*}
+        Thus, $\exists i_1=i_0+1$ and $\exists j_1=j_0$, s.t. $k=i_1\times 2+j_1\times 3$. We have derived a contradiction,
+which allows us to conclude that our original assumption is false. 
+
+
+       To sum up, we can alaways find integers $i_n\ge 0$ and $j_n\ge 0$, such that $n = i_n \times 2 + j_n \times 3$.
+    \end{proof}
+
+    \item
+    Suppose the function $f$ be defined on the natural numbers recursively as follows: $f(0)=0$, $f(1)=1$, and $f(n)=5f(n-1)-6f(n-2)$, for $n\geq 2$. Use the strong principle of mathematical induction to prove that for all $n\in N$, $f(n)=3^n-2^n$. 
+    \begin{proof}
+        For $n=0$, $f(0)=3^0-2^0=0$.
+
+        For $n=1$, $f(1)=3^1-2^1=1$.
+
+        Supposing $k\in N$, $k\ge 0$, $f(k)=3^k-2^k$, $f(k+1)=3^{k+1}-2^{k+1}$.
+
+        By the condition, $f(k+2)=5f(k+1)-6f(k)=3^k \times (5\times 3-6)-2^k(5\times 2-6)=3^{k+2}-2^{k+2}$. 
+
+        According to the strong principle of mathematical induction, $\forall n \in N$, $f(n)=3^n-2^n$.
+    \end{proof}
+
+    \item
+    An $n$-team basketball tournament consists of some set of $n\geq2$ teams. Team $p$ beats team $q$ iff $q$
+does not beat $p$, for all teams $p\neq q$. A sequence of distinct teams $p_{1}$, $p_{2}$,..., $p_{k}$, such that team $p_{i}$ beats team $p_{i+1}$ for $1\leq i<k$ is called a ranking of these teams. If also team $p_{k}$ beats team $p_{1}$, the ranking is called a \emph{k-cycle}. 
+
+Prove by mathematical induction that in every tournament, either there is a ``champion" team that beats every other team, or there is a 3-cycle. 
+    \begin{proof}
+        For $n=2$, there are only two possible situations where team 1 beats team 2 or team 2 beats team 1. And in both cases there is a ``champion" team.
+
+        For $n=3$, either one team defeats the other two team, or there is a 3-cycle.
+
+        Supposing  $k\in N$,  either there is a ``champion" team that beats every other team, or there is a 3-cycle. 
+
+        Case there is a 3-cycle:
+         
+        \qquad For $n=k+1$, we can still find this 3-cycle after adding a new team.
+
+        Case there is a ``champion" team:
+
+        \qquad For $n=k+1$, if the new team beats every other team, it become a ``champion" team.
+
+        \qquad If the previous ``champion" team beats the new team, the previous one goes on to be the champion.
+
+        \qquad If the new team beats the previous ``champion" team but is defeated by another team, the three teams form a 3-cycle. 
+
+        According to the strong principle of mathematical induction, $\forall k\in N$,  either there is a ``champion" team that beats every other team, or there is a 3-cycle.
+
+    \end{proof}
+
+\end{enumerate}
+
+\vspace{20pt}
+
+\textbf{Remark:} You need to include your .pdf and .tex files in your uploaded .rar or .zip file.
+
+%========================================================================
+\end{document}
